@@ -77,6 +77,7 @@ function formatDate(date){
    return year.concat("-", month, "-", day);
 }
 
+
 //------------------------------------------------------- api location picker:
 $(function() {
    $('#map').locationpicker({
