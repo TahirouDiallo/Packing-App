@@ -1,38 +1,218 @@
-.Checkbox {
-  display: inline-flex;
-  align-items: center;
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
+
+html, .container-fluid{
+  background-color: #F1F1F1;
+}
+
+.header{
+  height: 120px;  
+}
+
+.header .logo{  
+  display: flex;    
+  align-items: center;  
+}
+
+.header .logo h2{  
+  margin-left: 15%;
+  font-family: 'Dancing Script', cursive;
+  font-size: 40px;
+  font-weight: bold;
   cursor: pointer;
 }
 
-.checkbox__input {
-    display: none;
+.header .menus{
+  display: flex;    
+  justify-content: flex-end;
+  align-items: center;  
 }
 
-.checkbox__box {
-  width: 1.25em;
-  height: 1.25em;
-  border: 2px solid #cccccc;
-  border-radius: 3px;
+.header .menus .menus_container{  
+  display: flex;     
+  justify-content: space-between;
+  align-items: center; 
+  margin-right: 5%;  
+  width: 90px;  
+  height: 25px;    
+}
+
+.header .menus .menus_container #menu{
+  display: none;
+}
+
+.header .menus .menus_container .icon{
+  position: relative;
+  width: 25px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  cursor: pointer;    
+}
+
+.header .menus .menus_container .icon .menu,
+.header .menus .menus_container .icon .menu::before,
+.header .menus .menus_container .icon .menu::after{ 
+  position: absolute;    
+  content: '';
+  display: block;  
+  height: 3px;
+  float: right;
+  border-radius: 2px;   
+  cursor: pointer;  
+  background-color: #333333;
+  transition: all ease .3s;  
+}
+
+.header .menus .menus_container .icon .menu{
+  width: 100%;
+}
+
+.header .menus .menus_container .icon:hover .menu,
+.header .menus .menus_container .icon:hover .menu::before,
+.header .menus .menus_container .icon:hover .menu::after{ 
+  background-color: rgb(105, 78, 226);
+}
+
+.header .menus .menus_container .icon .menu::before{
+  width: 80%;
+  top: -8px;
+}
+
+.header .menus .menus_container .icon .menu::after{
+  width: 60%;
+  top: 8px;
+}
+
+.header .menus .menus_container #menu:checked + .icon .menu {    
+   background: transparent;    
+}
+
+.header .menus .menus_container #menu:checked + .icon .menu::before {      
+    transform: rotate(45deg);
+}
+
+.header .menus .menus_container #menu:checked + .icon .menu::after {        
+    transform: rotate(-45deg);
+}
+
+.header .menus .menus_container #menu:checked + .icon .menu::before,
+.header .menus .menus_container #menu:checked + .icon .menu::after {    
+    width: 100%;       
+    top: 0px;
+    transition: all ease .3s;
+}
+
+.header .menus .menus_container #bell{
+  display: none;
+}
+
+.header .menus .menus_container .icon .bell{
+  height: 30px;
+  width: 30px;
+  transition: all ease .3s;  
+}
+.header .menus .menus_container .icon .bell:hover{
+  filter: invert(33%) sepia(37%) saturate(4896%) hue-rotate(238deg) brightness(90%) contrast(96%);
+}
+
+.header .menus .menus_container #bell:checked + .icon .bell {   
+  transform: rotate(-45deg);
+  transition: all ease .3s;
+}
+
+.app{
+  height: 600px;     
   display: flex;
   align-items: center;
+  background-image: url("public/img/bag.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;      
+}
+
+.app .startBox{
+  height: 75%; 
+  width: 55%;   
+  display: flex;
   justify-content: center;
-  margin-right: 10px;
-  flex-shrink: 0;
-  transition: background 0.15, border-color0.15s;
-
+  align-items: center;
+  margin-left: 40%;
+  border-radius: 14px;  
+  background: #f1f1f1d4;  
+  box-shadow: 0px 15px 25px #271711;
 }
 
-.checkbox__box::after {
-  content:'\2714';
-  color: #ffffff;
-  transform: scale(0);
-  transition: transform 0.15s;
+.app .startBox .startContainer{
+  height: min-content;
+  width: 90%;  
+}
 
+.app .startBox .startContainer .mb-2 .form-label{
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 28px;  
 }
-.checkbox__input:checked + .checkbox__box{
-    background: #2266dc;
-    border-color: #2266dc;
+
+.about{
+  height: min-content;     
+  width: 100%;
+  justify-content: center;
+  font-family: 'Ubuntu', sans-serif;    
 }
-.checkbox__input:checked + .checkbox__box::after {
-  transform: scale(1);
+
+.about .row{
+  margin-bottom: 20px;  
 }
+
+.about .row:not(:first-child){
+  height: 600px;
+  width: 80%;
+}
+
+
+.about .weather .image {  
+  background-image: url("public/img/weather.svg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 120% 120%;        
+}
+
+.about .checklist .image {  
+  background-image: url("public/img/checklist.svg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 120% 120%;        
+}
+
+.about .notificationSystem .image {  
+  background-image: url("public/img/notify.svg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 120% 120%;        
+}
+
+.about .row:not(:first-child) .text{    
+  display: flex;
+  align-items: center;    
+  text-align: justify;
+}
+
+.footer{  
+  height: 100px;
+  background-color: #333333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer h3 a{
+  color: #F1F1F1;
+  text-decoration: none;
+}
+
+.footer h3 span i{
+  color:#F1F1F1;
+}
+
