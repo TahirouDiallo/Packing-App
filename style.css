@@ -2,21 +2,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
 
-html, .container-fluid{
-  background-color: #F1F1F1;
+html, body{
+  background-color: #F1F1F1;  
+}
+
+body{
+  margin: 0%;
+  padding: 0%;
 }
 
 .header{
-  height: 120px;  
+  height: 120px;    
+  display: flex;
+  justify-content: space-between;  
 }
 
 .header .logo{  
-  display: flex;    
-  align-items: center;  
+  width: min-content;
+  margin-left: 5%;
+  display: flex;      
+  align-items: center;      
 }
 
-.header .logo h2{  
-  margin-left: 15%;
+.header .logo h2{    
   font-family: 'Dancing Script', cursive;
   font-size: 40px;
   font-weight: bold;
@@ -24,9 +32,11 @@ html, .container-fluid{
 }
 
 .header .menus{
+  margin-right: 5%;
+  width: min-content;
   display: flex;    
   justify-content: flex-end;
-  align-items: center;  
+  align-items: center;    
 }
 
 .header .menus .menus_container{  
@@ -134,52 +144,135 @@ html, .container-fluid{
 }
 
 .app .startBox{
-  height: 75%; 
+  height: 80%; 
   width: 55%;   
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-left: 40%;
   border-radius: 14px;  
   background: #f1f1f1d4;  
-  box-shadow: 0px 15px 25px #271711;
+  box-shadow: 0px 15px 25px #271711;  
+}
+
+.app .startBox .submit{  
+  height: 80px;
+  width: 120px;  
+  border-color: transparent;
+  background-color: #333333;
+  border-radius: 10px;
+  border-radius: 10px;
+  font-size: large;
+  color: #F1F1F1;
+  font-family: 'Ubuntu', sans-serif;
+  cursor: pointer;
+}
+
+.app .startBox .submit:hover{
+  background-color: #1c1c1c;
 }
 
 .app .startBox .startContainer{
-  height: min-content;
+  height: 80%;
   width: 90%;  
+  display: flex;    
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 28px;     
 }
 
-.app .startBox .startContainer .mb-2 .form-label{
-  font-family: 'Ubuntu', sans-serif;
-  font-size: 28px;  
+.app .startBox .startContainer .col1{
+  display: flex; 
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;    
+}
+
+.app .startBox .startContainer .col1 .travel{
+  display: flex; 
+  flex-direction: column; 
+  align-items: center;
+  text-align: center;    
+}
+
+.app .startBox .startContainer .col1 .travel label{
+  font-size: 25px;
+}
+
+.app .startBox .startContainer .col1 .travel input{
+  margin-top: 20px;
+  width: 80%;
+  height: 35px;
+  border-radius: 8px;
+  border-color: transparent;
+  font-family: 'Ubuntu', sans-serif;    
+  font-size: large;
+}
+
+.app .startBox .startContainer .col2{
+  width: 50%;     
+}
+
+.app .startBox .startContainer .col2 #map{  
+  border-radius: 14px;  
 }
 
 .about{
   height: min-content;     
   width: 100%;
-  justify-content: center;
-  font-family: 'Ubuntu', sans-serif;    
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Ubuntu', sans-serif;  
+  margin-top: 50px;  
 }
 
-.about .row{
+.about .topic{
+  width: 100%;
   margin-bottom: 20px;  
+  font-size: 15px; 
+  opacity: 0.6;
+  text-align: center;  
 }
 
 .about .row:not(:first-child){
   height: 600px;
-  width: 80%;
+  width: 80%;  
+  display: flex;     
 }
 
+.about .row:not(:first-child) .text{
+  width: 50%;   
+  display: flex;
+  align-items: center;    
+  justify-content: center;
+  text-align: justify;
+}
+
+.about .row:not(:first-child) .text .box{   
+  width: 90%;     
+}
+
+.about .row:not(:first-child) .text .box h1{   
+  font-size: 50px; 
+}
+
+.about .row:not(:first-child) .text .box h4{   
+  font-size: 20px;   
+  font-weight: 500; 
+  line-height: 2rem;  
+}
 
 .about .weather .image {  
+  width: 50%; 
   background-image: url("public/img/weather.svg");
   background-position: center center;
   background-repeat: no-repeat;
-  background-size: 120% 120%;        
+  background-size: 120% 120%;      
 }
 
 .about .checklist .image {  
+  width: 50%; 
   background-image: url("public/img/checklist.svg");
   background-position: center center;
   background-repeat: no-repeat;
@@ -187,24 +280,20 @@ html, .container-fluid{
 }
 
 .about .notificationSystem .image {  
+  width: 50%; 
   background-image: url("public/img/notify.svg");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: 120% 120%;        
 }
 
-.about .row:not(:first-child) .text{    
-  display: flex;
-  align-items: center;    
-  text-align: justify;
-}
-
 .footer{  
-  height: 100px;
+  height: 100px;  
   background-color: #333333;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center;    
+  font-family: 'Ubuntu', sans-serif;    
 }
 
 .footer h3 a{
