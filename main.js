@@ -1,23 +1,27 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import { setupCounter } from './counter.js'
+import { WeatherApi } from './js/components/weatherComp.js';
+import { weatherApi } from './js/api/weather.js';
+import { DailyForecast } from './js/components/dailyForecastComp.js';
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+// Destination Inputed and connected to fetch
+const btn = document.getElementById('btn');
+btn.addEventListener('click', (e) => {
+  e.preventDefault();
+  const startDate = document.getElementById('whenFrom').value;
+  const endDate = document.getElementById('whenTo').value;
+  const destInputVal = document.getElementById('autocomplete').value;
+   
+  console.log(startDate);
+  console.log(endDate);
+  console.log(destInputVal);
+ 
+  // weatherApi(destInputVal, startDate, endDate);
+  weatherApi(destInputVal, startDate, endDate);
+ 
+//Enable Weather Custom Component:
+window.customElements.define('weather-api', WeatherApi);
+window.customElements.define('daily-forecast', DailyForecast);
 
-setupCounter(document.querySelector('#counter'))
+});
+
+
+

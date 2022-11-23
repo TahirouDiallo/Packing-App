@@ -32,7 +32,7 @@ const notifyMe = () => {
     //Not currently working
     notify.onclick = () => {
         //Opens in new tab ✔
-        // window.open('https://www.youtube.com/')
+
     
         //Opens in same tab ✔
         // window.location.href= "./checklist.html";
