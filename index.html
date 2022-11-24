@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css" />
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+  <!-- AIzaSyB0c5V6qLPsQjarQ35M5dO7_IPANYGIqhI -->
+
+  <script type="text/javascript"
+    src="https://maps.google.com/maps/api/js?key=AIzaSyB0c5V6qLPsQjarQ35M5dO7_IPANYGIqhI&libraries=places&callback=initAutocomplete"></script>
+
+  <!-- <script type="text/javascript"
+    src="https://maps.google.com/maps/api/js?key=AIzaSyB0c5V6qLPsQjarQ35M5dO7_IPANYGIqhI&sensor=false&libraries=places"></script> -->
+
+  <script type="text/javascript"
+    src="https://rawgit.com/Logicify/jquery-locationpicker-plugin/master/dist/locationpicker.jquery.js"></script>
+  <title>Home</title>
+</head>
+
+<body>
+  <div class="header">
+    <div class="col-3 logo">
+      <h2>CarryOn</h2>
+    </div>
+    <div class="col-9 menus">
+      <div class="menus_container">
+        <input type="checkbox" id="menu">
+        <label for="menu" class="icon">
+          <div class="menu"></div>
+        </label>
+
+        <input type="checkbox" id="bell">
+        <label for="bell" class="icon">
+          <img src="public/img/bell.svg" alt="" class="bell">
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="app">
+    <div class="startBox">
+      <br>
+      <br>
+      <div class="startContainer">
+        <div class="col1">
+          <div class="travel">
+            <label for="whenFrom" class="form-label">When do you intend to travel?</label>
+            <input type="date" class="form-control whenTravel" id="whenFrom" placeholder="">
+          </div>
+          <br>
+          <div class="travel">
+            <label for="whenTo" class="form-label">When do you intend to return?</label>
+            <input type="date" class="form-control whenTravel" id="whenTo" placeholder="">
+          </div>
+          <br>
+          <div class="travel">
+            <label for="location" class="form-label">What is your destination?</label>
+            <input type="text" class="form-control whereDestination" id="autocomplete" placeholder="">
+          </div>
+        </div>
+        <div class="col2">
+          <div id="map" style="width: 100%; height: 100%;"></div>
+        </div>
+      </div>
+      <br>
+      <br>
+      <button class="submit">Let's Plan</button>
+      <br>
+    </div>
+  </div>
+
+  <div class="about">
+    <div class="row topic">
+      <h1>FEATURES</h1>
+    </div>
+    <div class="row weather">
+      <div class="image"></div>
+      <div class="text">
+        <div class="box">
+          <h1>Lorem, ipsum dolor.</h1>
+          <br>
+          <h4>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis deleniti iste at magni dignissimos esse
+            eveniet natus dolore quia sed qui, sapiente cupiditate aut aliquid nesciunt consectetur accusantium vitae
+            commodi!</h4>
+        </div>
+      </div>
+    </div>
+    <div class="row checklist">
+      <div class="text">
+        <div class="box">
+          <h1>Lorem, ipsum dolor.</h1>
+          <br>
+          <h4>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis deleniti iste at magni dignissimos esse
+            eveniet natus dolore quia sed qui, sapiente cupiditate aut aliquid nesciunt consectetur accusantium vitae
+            commodi!</h4>
+        </div>
+      </div>
+      <div class="image"></div>
+    </div>
+    <div class="row notificationSystem">
+      <div class="image"></div>
+      <div class="text">
+        <div class="box">
+          <h1>Lorem, ipsum dolor.</h1>
+          <br>
+          <h4>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis deleniti iste at magni dignissimos esse
+            eveniet natus dolore quia sed qui, sapiente cupiditate aut aliquid nesciunt consectetur accusantium vitae
+            commodi!</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <h3><span style="padding-right: 10px;"><i class="bi bi-github"></i></span><a
+        href="https://github.com/TahirouDiallo/Packing-App/tree/master" target="_blank">Github Repository</a></h3>
+  </div>
+  <script src="index.js"></script>
+  <script>
+    let autocomplete;
+    var map;
+
+    function initAutocomplete() {
+      autocomplete = new google.maps.places.Autocomplete(
+        document.getElementById('autocomplete'),
+        {
+          fields: ['geometry', 'name'],
+        });
+
+      autocomplete.addListener('place_changed', onPlaceChanged);
+      const myLatLng = { lat: 37.0902, lng: -95.7129 };
+
+      var options = {
+        center: myLatLng,
+        zoom: 9
+      }
+      map = new google.maps.Map(document.getElementById('map'), options)
+    }
+
+    function onPlaceChanged() {
+      var place = autocomplete.getPlace();
+
+      if (!place.geometry) {
+        document.getElementById('autocomplete').placeholder = 'Enter a place';
+      } else {
+        document.getElementById('details').innerHTML = place.name;
+        latitude = place.geometry.location.lat();
+        longitude = place.geometry.location.lng();
+
+        console.log(typeof latitude);
+        console.log(typeof longitude);
+
+        var newLatLng = new google.maps.LatLng(latitude, longitude);
+        map.setCenter(newLatLng);
+        marker = new google.maps.Marker({
+          position: newLatLng,
+          title: "Hello World!",
+          map: map,
+          animation: google.maps.Animation.BOUNCE,
+
+        });
+      }
+    }
+  </script>
+</body>
+
+</html>
