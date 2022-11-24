@@ -20,24 +20,25 @@ li {
     list-style: none;
 }
 
-header {
+.header {
     background: lightsteelblue;
     color: darkslategrey;
     padding: 10px;
 }
 
-header p {
+.header p {
     font-size: 16px;
 }
 
 .survey {
     width: 80%;
     margin: 20px auto;
-    background: whitesmoke;
-    color: darkslategrey;
+    background: white;
+    color: black;
     height: 200px;
-    border-radius: 3px;
-    box-shadow: 1px 1px 7px rgba (0, 0, 0, 0.4);
+    border-radius: 8px;
+    box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.404);
+
 }
 
 .survey h3 {
@@ -48,19 +49,22 @@ header p {
 .survey li {  
     margin: 10px;
     cursor: pointer;
+    border-radius: 10px;
+    padding: 4px;
 }
 
+
 .survey li:hover {
-    background: lightslategrey;
+    background: #d3d3d3 ;
     width: 150px;
     margin: 0 auto;
     padding: 4px;
-    border-radius: 3pm;
+    border-radius: 3px;
     transition: 0.3s ease;
 }
 
 .end {
-    background: darkslategray;
+    background: white;
     color: lightslategrey;
     width: 80%;
     margin: 35% auto;
@@ -82,7 +86,7 @@ header p {
     margin-top: 10px;
     padding: 5px;
     border-radius: 4px;
-    background: lightblue;
+    background: #d3d3d3;
     outline: none;
 }
 
