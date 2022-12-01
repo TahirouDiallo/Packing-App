@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <template id="template-check-list">
+        <div id="checklist">
+            <form id="todoform">
+                <input type="text" name="newtodo" id="newtodo" placeholder="I will remember to verify ..." />
+                <button type="submit">
+                    <i class="bi bi-plus-circle-fill"></i>
+                </button>
+            </form>
+        </div>
+    </template>
+
+    <h1>Show Checkboxes</h1>
+
+    <form>
+        <input type="checkbox" name="vehicle" value="Bike">
+        <label for="vehicle1"> I have a bike</label><br>
+        <input type="checkbox" name="vehicle" value="Car">
+        <label for="vehicle2"> I have a car</label><br>
+        <input type="checkbox" name="vehicle" value="Boat">
+        <label for="vehicle3"> I have a boat</label><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <br>
+    <br>
+    <check-list></check-list>
+
+    <script src="js/components/stateManagement.js"></script>
+</body>
+
+</html>
