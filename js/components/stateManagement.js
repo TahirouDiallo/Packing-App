@@ -1,3 +1,84 @@
+const defaultItems = {
+Identification: [
+  'passport', 
+  'license', 
+  'boarding pass', 
+  'RFID wallet'
+],
+
+Hygiene: [
+  'toothbrush',
+  'travel size toothpaste',
+  'floss',
+  'hand sanitizer',
+  'tissue',
+  'travel size mouthwash',
+  'lip balm',
+  'lotion',
+  'gum',
+  'N95 mask',
+  'sanitizing wipes',
+],
+
+Electronics: [   
+  'laptop',  
+  'smartphone', 
+  'headset/earbuds',
+  'AirFly (wireless headphone adapter)',
+  'phone charger',
+  'laptop charger',
+  'universal outlet',
+  'ipad',
+  'ipad charger',
+  'portable charger',
+  'portable steamer',
+  'portable hard drive',
+  'privacy screen reader',
+  'portable hotspot',
+],
+
+Clothing: [
+  'shoe bags',      
+  'wrinkle release spray',
+  'lint roller',
+  'stain remover',
+  'plastic collar stays',
+  'sewing kit',
+],
+};
+
+const questionnaireResponses = {  
+    Business: [ 
+      defaultItems.Identification,           
+      defaultItems.Hygiene,
+      [
+        'business suit/s',
+        'laptop',  
+        'smartphone', 
+        'headset/earbuds',
+      ],     
+    ],
+
+    Vacation: [
+      defaultItems.Identification,           
+      defaultItems.Hygiene,
+      [
+        'towel',
+        'bathing suit',
+        'sunscreen'
+      ],
+    ],
+
+    Family: [
+      defaultItems.Identification,           
+      defaultItems.Hygiene,
+      [
+        'family gifts',
+      ],
+    ],  
+};
+
+
 class ChecklistState {
   constructor(init={}) {   
     const self = this;
@@ -57,7 +138,7 @@ const checklistState = new ChecklistState({selected: []});
 const form = document.querySelectorAll('form');  
 
 form.forEach(formItem => {        
-    var listItems = document.getElementsByName('vehicle');      
+    var listItems = document.getElementsByName('purpose');      
     arr = [];
 
     for (let i = 0; i < listItems.length; i++) {
@@ -99,8 +180,22 @@ class Checklist extends HTMLElement {
   // Change selected  when attribute changes
   attributeChangedCallback(property, oldValue, newValue) {
     if (oldValue === newValue) return;
-    if (property === 'selected') {                          
-        console.log(newValue); 
+    if (property === 'selected') {           
+      newValue = newValue.split(',');                            
+      let out = [];           
+      
+      newValue.forEach(value => {
+        if (questionnaireResponses.hasOwnProperty(value)){          
+          questionnaireResponses[value].forEach(itemGroup => {
+            itemGroup.forEach(item => {
+              if(!out.includes(item)){
+                out.push(item);
+              }
+            });
+          });            
+        }
+      });
+      console.log(out);  
     }
   }  
 }
