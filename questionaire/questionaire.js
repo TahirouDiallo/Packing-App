@@ -1,29 +1,62 @@
-const ul_1 = document.querySelector(".option1");
-const ul_2 = document.querySelector(".option2");
-const ul_3 = document.querySelector(".option3");
-
-const q1 = document.querySelector(".q1");
-const q2 = document.querySelector(".q2");
-const q3 = document.querySelector(".q3");
-
 const survey = document.querySelector(".survey");
 const end = document.querySelector(".end");
+const questions = [
+  {
+  question: 'What is the occassion for your travel?',
+  options: ['Leisure', 'Business', 'Vacation', 'Family']
+  },
+  {
+  question: 'Out of the following options, which one best describes your destination?',
+  options: ['Beach', 'Mountain', 'City', 'Forest', 'Restaurant', 'Biking', 'Water Sports', 'Gym']
+  },
+];
 
-// Q1
-ul_1.addEventListener("click", function() {
-    q1.style.display = "none";
-    q2.style.display = "block";
-});
+class Questions extends HTMLElement {
+   constructor() {
+    // Always call super first in constructor
+    super();      
+    const shadow = this.attachShadow({mode: 'open'});   
+    const template = document.getElementById('template-question-cards');
+    const node = document.importNode(template.content, true);
+    shadow.append(node);       
 
-// Q2
-ul_2.addEventListener("click", function() {
-    q2.style.display = "none";
-    q3.style.display = "block";
-});
+    this.container = this.shadowRoot.querySelector('.container');
+  }
 
-// Thank you message
-ul_3.addEventListener("click", function() {
-    q3.style.display = "none";
-    survey.style.display = "none";
-    end.style.display = "block";
-})
+  connectedCallback() {    
+    questions.forEach(q => {      
+        const card = document.createElement('div');
+        card.innerHTML = `        
+            <h3 id="text">${q.question}</h3>
+            <ul class="option"></ul>        
+        `;
+
+        card.classList.add('question');
+
+        const options = card.querySelector('.option');
+        q.options.forEach(option => {
+          const o = document.createElement('li');
+          o.innerHTML = option;
+          options.append(o);   
+        });             
+
+        options.addEventListener("click", function(e) {                        
+          let parent = e.target.parentNode.parentNode; //getBoundingClientRect          
+          parent.style.display = "none"; //hide
+          if(!parent.nextSibling) {
+            survey.style.height = '0px';    
+            return;
+          };                        
+          parent.nextSibling.style.display = "block"; //show              
+          survey.style.height = parent.nextSibling.offsetHeight + 'px';    
+        }); 
+        
+        this.container.append(card);
+      });
+  }
+}
+
+
+if (customElements.get('question-cards') === undefined) {
+    customElements.define('question-cards', Questions);
+}

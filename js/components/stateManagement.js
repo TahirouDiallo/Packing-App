@@ -1,3 +1,5 @@
+import {openDB} from 'idb'; 
+
 const defaultItems = {
 Identification: [
   'passport', 
@@ -78,11 +80,31 @@ const questionnaireResponses = {
     ],  
 };
 
-
 class ChecklistState {
-  constructor(init={}) {   
+  constructor(init={}) {  
+    if (!('indexedDB' in window)) {
+      console.log('This browser doesn\'t support IndexedDB');
+      return;
+    }
+
+    this.database = this.connectDB(); 
+
     const self = this;
     this.subscribers = [];
+
+    this.database.then(async (db) => {
+      // Make the database reusable from within the store
+      this.db = db;
+
+      const tx = db.transaction(['checklist'], 'readwrite');
+      const store = tx.objectStore('checklist');
+
+      return store.count();
+    }).then((count) => {
+      if (count > 0) {
+        this.set('recordcount', count);
+      }
+    });
 
     this.state = new Proxy(init, {
       set(state, key, value) {
@@ -117,90 +139,172 @@ class ChecklistState {
     return this.state[key];
   }
 
-  append(changedValue){   
-    this.get('selected').push(changedValue);
-    this.set(this.get('selected'));        
+  connectDB() {
+    return openDB('ChecklistDB', 1, {upgrade(db) {
+      if (!db.objectStoreNames.contains('checklist')) {
+        console.log('Making Checklist Table...');
+
+        const checklistTable = db.createObjectStore('checklist', {keyPath: 'id', autoIncrement: true});
+        checklistTable.createIndex('text', 'text', {unique: true});
+        checklistTable.createIndex('checked', 'checked', {unique: false});   
+        checklistTable.createIndex('custom', 'custom', {unique: false});                
+      }
+    }});
   }
 
-  remove(changedValue){   
+  append(newItem, showNotification){   
+    this.get('selected').push(newItem);     
+
+    let items = [];           
+      
+    this.get('selected').forEach(value => {
+      if (questionnaireResponses.hasOwnProperty(value)){          
+        questionnaireResponses[value].forEach(itemGroup => {
+          itemGroup.forEach(item => {
+            if(!items.includes(item)){
+              items.push(item);
+            }
+          });
+        });            
+      }
+    });             
+    
+    this.removeAllNonCustomItems();
+    this.addItemsToDatabase(false, items, showNotification);
+  }
+
+  appendItem(newItem, showNotification){    
+    this.addItemsToDatabase(true, [newItem], showNotification);
+  }
+
+  remove(removedItem){   
     let selected = this.get('selected');  
-    var indexToBeRemoved = selected.indexOf(changedValue);
+    var indexToBeRemoved = selected.indexOf(removedItem);
     if (indexToBeRemoved !== -1) {
         selected.splice(indexToBeRemoved, 1);
-    }      
-    
-    this.set(selected);
-  }
-}
-
-const checklistState = new ChecklistState({selected: []});
-
-const form = document.querySelectorAll('form');  
-
-form.forEach(formItem => {        
-    var listItems = document.getElementsByName('purpose');      
-    arr = [];
-
-    for (let i = 0; i < listItems.length; i++) {
-        listItems[i].addEventListener('change', function() {
-            if (this.checked) {                              
-                checklistState.append(this.value);
-            } else {                
-                checklistState.remove(this.value);                     
-            }
-        });        
     }              
-});
 
-class Checklist extends HTMLElement {
-  constructor() {
-    // Always call super first in constructor
-    super();
+    let items = [];           
+      
+    this.get('selected').forEach(value => {
+      if (questionnaireResponses.hasOwnProperty(value)){          
+        questionnaireResponses[value].forEach(itemGroup => {
+          itemGroup.forEach(item => {
+            if(!items.includes(item)){
+              items.push(item);
+            }
+          });
+        });            
+      }
+    });                     
 
-    const shadow = this.attachShadow({mode: 'open'});   
-
-    const template = document.getElementById('template-check-list');
-    const node = document.importNode(template.content, true);
-    shadow.append(node);
-
-    this.checklist = this.shadowRoot.querySelector('#checklist');
+    this.removeAllNonCustomItems();
+    this.addItemsToDatabase(false, items);    
   }
 
-  // Observe selected attribute for changes
-  static get observedAttributes() {
-    return ['selected'];
-  }
-
-  connectedCallback() {
-    checklistState.subscribe((state) => {
-      this.setAttribute('selected', state.selected);                            
+  removeItemByID(id){                                   
+    this.database.then((db) => {
+      const tx = db.transaction(['checklist'], 'readwrite');
+      const store = tx.objectStore('checklist');
+              
+      store.delete(id);     
+  
+      return store.count();
+    }).then((count)=> {      
+      console.log('Item deleted.');  
+      this.set('selected', this.get('selected'));           
+      this.set('recordcount', Math.max(0, count));
     });
   }
 
-  // Change selected  when attribute changes
-  attributeChangedCallback(property, oldValue, newValue) {
-    if (oldValue === newValue) return;
-    if (property === 'selected') {           
-      newValue = newValue.split(',');                            
-      let out = [];           
+  editItemByID(id, text, showNotification){                                   
+    this.database.then((db) => {
+      const tx = db.transaction(['checklist'], 'readwrite');
+      const store = tx.objectStore('checklist');
+              
+      store.get(id).then((record)=>{
+        record.text = text;
+        
+        store.put(record);   
+      });           
+  
+      return store.count();
+    }).then((count)=> {      
+      console.log('Item Edited.');  
       
-      newValue.forEach(value => {
-        if (questionnaireResponses.hasOwnProperty(value)){          
-          questionnaireResponses[value].forEach(itemGroup => {
-            itemGroup.forEach(item => {
-              if(!out.includes(item)){
-                out.push(item);
-              }
-            });
-          });            
-        }
+      this.set('selected', this.get('selected'));    
+      this.set('recordcount', 0);       
+      this.set('recordcount', Math.max(0, count));
+    }).catch(e =>{
+      showNotification('Todo exists already!');
+    });
+  }
+
+  checkItemByID(id, value){                                   
+    this.database.then((db) => {
+      const tx = db.transaction(['checklist'], 'readwrite');
+      const store = tx.objectStore('checklist');
+              
+      store.get(id).then((record)=>{
+        record.checked = value;
+        
+        store.put(record);   
+      });     
+        
+      return store.count();
+    }).then((count)=> {      
+      console.log('Item Checked.');  
+      
+      this.set('selected', this.get('selected'));    
+      this.set('recordcount', 0);       
+      this.set('recordcount', Math.max(0, count));
+    });
+  }
+
+  addItemsToDatabase(isCustom, items, showNotification){
+    this.database.then(function(db) {
+      const tx = db.transaction(['checklist'], 'readwrite');
+      const store = tx.objectStore('checklist');
+
+      items.forEach(item => {
+        const i = {
+          text: item,          
+          checked: false, 
+          custom: isCustom,         
+        };
+
+        store.add(i);
       });
-      console.log(out);  
-    }
-  }  
+      
+      return store.count();      
+    }).then((count) => {
+      console.log('Item Added Successfully.');         
+      this.set('recordcount', Math.max(0, count));         
+    }).catch(e => {
+      showNotification('Todo exists already!');
+    });
+  }
+
+  removeAllNonCustomItems(){
+    this.database.then(function(db) {
+      const tx = db.transaction(['checklist'], 'readwrite');
+      const store = tx.objectStore('checklist');
+
+      store.getAll().then((allRecords)=>{
+        allRecords.forEach((item) => {
+          if(!item.custom) store.delete(item.id); 
+        });
+      });
+     
+      return store.count();
+    }).then((count)=> {      
+      console.log('Old Non-Custom Items deleted.');
+      this.set('recordcount', Math.max(0, count));
+    });
+  } 
 }
 
-if (customElements.get('check-list') === undefined) {
-    customElements.define('check-list', Checklist);
-}
+const checklistState = new ChecklistState({recordcount: 0, selected: []});
 
+let state = { checklist: checklistState};
+export {state};
