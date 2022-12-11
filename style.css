@@ -1,307 +1,353 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
 
-html, body{
-  background-color: #F1F1F1;  
+html,
+body {
+  background-color: #f1f1f1;
 }
 
-body{
+body {
   margin: 0%;
   padding: 0%;
 }
 
-.header{
-  height: 120px;    
+.header {
+  height: 120px;
   display: flex;
-  justify-content: space-between;  
+  justify-content: space-between;
 }
 
-.header .logo{  
+.header .logo {
   width: min-content;
   margin-left: 5%;
-  display: flex;      
-  align-items: center;      
+  display: flex;
+  align-items: center;
 }
 
-.header .logo h2{    
-  font-family: 'Dancing Script', cursive;
+.header .logo h2 {
+  font-family: "Dancing Script", cursive;
   font-size: 40px;
   font-weight: bold;
   cursor: pointer;
 }
 
-.header .menus{
+.header .menus {
   margin-right: 5%;
   width: min-content;
-  display: flex;    
+  display: flex;
   justify-content: flex-end;
-  align-items: center;    
+  align-items: center;
 }
 
-.header .menus .menus_container{  
-  display: flex;     
+.header .menus .menus_container {
+  display: flex;
   justify-content: space-between;
-  align-items: center; 
-  margin-right: 5%;  
-  width: 90px;  
-  height: 25px;    
+  align-items: center;
+  margin-right: 5%;
+  width: 90px;
+  height: 25px;
 }
 
-.header .menus .menus_container #menu{
+.header .menus .menus_container #menu {
   display: none;
 }
 
-.header .menus .menus_container .icon{
+.header .menus .menus_container .icon {
   position: relative;
   width: 25px;
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;  
-  cursor: pointer;    
+  align-items: center;
+  cursor: pointer;
 }
 
 .header .menus .menus_container .icon .menu,
 .header .menus .menus_container .icon .menu::before,
-.header .menus .menus_container .icon .menu::after{ 
-  position: absolute;    
-  content: '';
-  display: block;  
+.header .menus .menus_container .icon .menu::after {
+  position: absolute;
+  content: "";
+  display: block;
   height: 3px;
   float: right;
-  border-radius: 2px;   
-  cursor: pointer;  
+  border-radius: 2px;
+  cursor: pointer;
   background-color: #333333;
-  transition: all ease .3s;  
+  transition: all ease 0.3s;
 }
 
-.header .menus .menus_container .icon .menu{
+.header .menus .menus_container .icon .menu {
   width: 100%;
 }
 
 .header .menus .menus_container .icon:hover .menu,
 .header .menus .menus_container .icon:hover .menu::before,
-.header .menus .menus_container .icon:hover .menu::after{ 
+.header .menus .menus_container .icon:hover .menu::after {
   background-color: rgb(105, 78, 226);
 }
 
-.header .menus .menus_container .icon .menu::before{
+.header .menus .menus_container .icon .menu::before {
   width: 80%;
   top: -8px;
 }
 
-.header .menus .menus_container .icon .menu::after{
+.header .menus .menus_container .icon .menu::after {
   width: 60%;
   top: 8px;
 }
 
-.header .menus .menus_container #menu:checked + .icon .menu {    
-   background: transparent;    
+.header .menus .menus_container #menu:checked + .icon .menu {
+  background: transparent;
 }
 
-.header .menus .menus_container #menu:checked + .icon .menu::before {      
-    transform: rotate(45deg);
+.header .menus .menus_container #menu:checked + .icon .menu::before {
+  transform: rotate(45deg);
 }
 
-.header .menus .menus_container #menu:checked + .icon .menu::after {        
-    transform: rotate(-45deg);
+.header .menus .menus_container #menu:checked + .icon .menu::after {
+  transform: rotate(-45deg);
 }
 
 .header .menus .menus_container #menu:checked + .icon .menu::before,
-.header .menus .menus_container #menu:checked + .icon .menu::after {    
-    width: 100%;       
-    top: 0px;
-    transition: all ease .3s;
+.header .menus .menus_container #menu:checked + .icon .menu::after {
+  width: 100%;
+  top: 0px;
+  transition: all ease 0.3s;
 }
 
-.header .menus .menus_container #bell{
+.header .menus .menus_container #bell {
   display: none;
 }
 
-.header .menus .menus_container .icon .bell{
+.header .menus .menus_container .icon .bell {
   height: 30px;
   width: 30px;
-  transition: all ease .3s;  
+  transition: all ease 0.3s;
 }
-.header .menus .menus_container .icon .bell:hover{
-  filter: invert(33%) sepia(37%) saturate(4896%) hue-rotate(238deg) brightness(90%) contrast(96%);
+.header .menus .menus_container .icon .bell:hover {
+  filter: invert(33%) sepia(37%) saturate(4896%) hue-rotate(238deg)
+    brightness(90%) contrast(96%);
 }
 
-.header .menus .menus_container #bell:checked + .icon .bell {   
+.header .menus .menus_container #bell:checked + .icon .bell {
   transform: rotate(-45deg);
-  transition: all ease .3s;
+  transition: all ease 0.3s;
 }
 
-.app{
-  height: 600px;     
+.app {
+  height: 600px;
   display: flex;
   align-items: center;
   background-image: url("public/img/bag.jpg");
   background-position: center center;
   background-repeat: no-repeat;
-  background-size: cover;      
+  background-size: cover;
 }
 
-.app .startBox{
-  height: 80%; 
-  width: 55%;   
+.app .startBox {
+  height: 80%;
+  width: 55%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-left: 40%;
-  border-radius: 14px;  
-  background: #f1f1f1d4;  
-  box-shadow: 0px 15px 25px #271711;  
+  border-radius: 14px;
+  background: #f1f1f1d4;
+  box-shadow: 0px 15px 25px #271711;
 }
 
-.app .startBox .submit{  
+.app .startBox .submit {
   height: 80px;
-  width: 120px;  
+  width: 120px;
   border-color: transparent;
   background-color: #333333;
   border-radius: 10px;
   border-radius: 10px;
   font-size: large;
-  color: #F1F1F1;
-  font-family: 'Ubuntu', sans-serif;
+  color: #f1f1f1;
+  font-family: "Ubuntu", sans-serif;
   cursor: pointer;
 }
 
-.app .startBox .submit:hover{
+.app .startBox .submit:hover {
   background-color: #1c1c1c;
 }
 
-.app .startBox .startContainer{
+.app .startBox .startContainer {
   height: 80%;
-  width: 90%;  
-  display: flex;    
-  font-family: 'Ubuntu', sans-serif;
-  font-size: 28px;     
+  width: 90%;
+  display: flex;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 28px;
 }
 
-.app .startBox .startContainer .col1{
-  display: flex; 
+.app .startBox .startContainer .col1 {
+  display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 50%;    
+  width: 50%;
 }
 
-.app .startBox .startContainer .col1 .travel{
-  display: flex; 
-  flex-direction: column; 
+.app .startBox .startContainer .col1 .travel {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  text-align: center;    
+  text-align: center;
 }
 
-.app .startBox .startContainer .col1 .travel label{
+.app .startBox .startContainer .col1 .travel label {
   font-size: 25px;
 }
 
-.app .startBox .startContainer .col1 .travel input{
+.app .startBox .startContainer .col1 .travel input {
   margin-top: 20px;
   width: 80%;
   height: 35px;
   border-radius: 8px;
   border-color: transparent;
-  font-family: 'Ubuntu', sans-serif;    
+  font-family: "Ubuntu", sans-serif;
   font-size: large;
 }
 
-.app .startBox .startContainer .col2{
-  width: 50%;     
+.app .startBox .startContainer .col2 {
+  width: 50%;
 }
 
-.app .startBox .startContainer .col2 #map{  
-  border-radius: 14px;  
+.app .startBox .startContainer .col2 #map {
+  border-radius: 14px;
 }
 
-.about{
-  height: min-content;     
+.about {
+  height: min-content;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'Ubuntu', sans-serif;  
-  margin-top: 50px;  
+  font-family: "Ubuntu", sans-serif;
+  margin-top: 50px;
 }
 
-.about .topic{
+.about .topic {
   width: 100%;
-  margin-bottom: 20px;  
-  font-size: 15px; 
+  margin-bottom: 20px;
+  font-size: 15px;
   opacity: 0.6;
-  text-align: center;  
+  text-align: center;
 }
 
-.about .row:not(:first-child){
+.about .row:not(:first-child) {
   height: 600px;
-  width: 80%;  
-  display: flex;     
+  width: 80%;
+  display: flex;
 }
 
-.about .row:not(:first-child) .text{
-  width: 50%;   
+.about .row:not(:first-child) .text {
+  width: 50%;
   display: flex;
-  align-items: center;    
+  align-items: center;
   justify-content: center;
   text-align: justify;
 }
 
-.about .row:not(:first-child) .text .box{   
-  width: 90%;     
+.about .row:not(:first-child) .text .box {
+  width: 90%;
 }
 
-.about .row:not(:first-child) .text .box h1{   
-  font-size: 50px; 
+.about .row:not(:first-child) .text .box h1 {
+  font-size: 50px;
 }
 
-.about .row:not(:first-child) .text .box h4{   
-  font-size: 20px;   
-  font-weight: 500; 
-  line-height: 2rem;  
+.about .row:not(:first-child) .text .box h4 {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 2rem;
 }
 
-.about .weather .image {  
-  width: 50%; 
+.about .weather .image {
+  width: 50%;
   background-image: url("public/img/weather.svg");
   background-position: center center;
   background-repeat: no-repeat;
-  background-size: 120% 120%;      
+  background-size: 120% 120%;
 }
 
-.about .checklist .image {  
-  width: 50%; 
+.about .checklist .image {
+  width: 50%;
   background-image: url("public/img/checklist.svg");
   background-position: center center;
   background-repeat: no-repeat;
-  background-size: 120% 120%;        
+  background-size: 120% 120%;
 }
 
-.about .notificationSystem .image {  
-  width: 50%; 
+.about .notificationSystem .image {
+  width: 50%;
   background-image: url("public/img/notify.svg");
   background-position: center center;
   background-repeat: no-repeat;
-  background-size: 120% 120%;        
+  background-size: 120% 120%;
 }
 
-.footer{  
-  height: 100px;  
+.footer {
+  height: 100px;
   background-color: #333333;
   display: flex;
   justify-content: center;
-  align-items: center;    
-  font-family: 'Ubuntu', sans-serif;    
+  align-items: center;
+  font-family: "Ubuntu", sans-serif;
 }
 
-.footer h3 a{
-  color: #F1F1F1;
+.footer h3 a {
+  color: #f1f1f1;
   text-decoration: none;
 }
 
-.footer h3 span i{
-  color:#F1F1F1;
+.footer h3 span i {
+  color: #f1f1f1;
 }
 
+/********************Modal***************************/
+
+.hidden {
+  display: none;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 35%;
+  height: 65%;
+  background-color: white;
+  padding: 6rem;
+  border-radius: 20px;
+  box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(3px);
+  z-index: 5;
+}
+
+.close-modal {
+  position: absolute;
+  top: 13px;
+  right: 20px;
+  width: 45px;
+  font-size: 2rem;
+  /* border-color: white; */
+}
+
+#business {
+  width: 20px;
+  height: 20px;
+}
