@@ -4,9 +4,6 @@ import { DailyForecast } from "./js/components/dailyForecastComp.js";
 // import { forecastApi } from './js/api/fetchData.js';
 
 // Destination Inputed and connected to fetch
-// const modalToggle = document.getElementById('exampleModal');
-// const myModal = new bootstrap.Modal(modalToggle, {});
-
 const modal = document.querySelector(".modal");
 const closeModal = document.querySelector(".close-modal");
 const overlay = document.querySelector(".overlay");
@@ -31,17 +28,6 @@ btn.addEventListener("click", (e) => {
   window.customElements.define("daily-forecast", DailyForecast);
 
   removeHidden();
-  // modal.style.display = 'block';
-  // overlay.style.display = 'block';
-
-  //myModal.toggle(modalToggle)
-  //Replace page with weather api
-  // location.replace("http://localhost:5173/index_test2.html")
-  // window.location.href = "http://www.w3schools.com";
-  // window.location.assign("index_test2.html")
-  // window.open('file:///F:/dl/VSCodeProjects/Packing-App-testMerge11_9/Packing-App-testMerge/index_test.html', "_blank");
-
-  // location.href ="/index_test2.html";
 });
 
 closeModal.addEventListener("click", () => {
