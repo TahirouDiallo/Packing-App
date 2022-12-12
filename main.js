@@ -1,7 +1,5 @@
-import { WeatherApi } from "./js/components/weatherComp.js";
 import { weatherApi } from "./js/api/weather.js";
 import { DailyForecast } from "./js/components/dailyForecastComp.js";
-// import { forecastApi } from './js/api/fetchData.js';
 
 // Destination Inputed and connected to fetch
 const modal = document.querySelector(".modal");
@@ -16,20 +14,59 @@ btn.addEventListener("click", (e) => {
   const endDate = document.getElementById("whenTo").value;
   const destInputVal = document.getElementById("autocomplete").value;
 
-  console.log(startDate);
-  console.log(endDate);
-  console.log(destInputVal);
+  // console.log(startDate);
+  // console.log(endDate);
+  // console.log(destInputVal);
 
   weatherApi(destInputVal, startDate, endDate);
-  // forecastApi.fetchWeather(destInputVal, startDate, endDate);
 
   //Enable Weather Custom Component:
-  // window.customElements.define('weather-api', WeatherApi);
   window.customElements.define("daily-forecast", DailyForecast);
 
+  //Display Modal after btn click:
   removeHidden();
+
+  // if(document.)
+
+  // if (document.querySelector(".survey")) {
+  //   document.querySelector("#modalTwo").style.display = "block";
+  // }
+  // if (!document.querySelector(".survey")) {
+  //   document.querySelector("#modalTwo").style.display = "block";
+  // }
+
+  /* if modal contains survey && if modal contains modal two 
+  then display = none for modaltwo 
+  else if modal only contains modaltwo
+  then display = block for modaltwo
+
+  other option: 
+
+  if option 3 is selected then display = block for modaltwo 
+  and 
+*/
+  // const optionThree = document.querySelectorAll(".option3");
+  // const li = document.querySelectorAll("li");
+
+  let list = document.querySelector(".option3").getElementsByTagName("li");
+
+  for (let index = 0; index < list.length; index++) {
+    const element = list[index];
+    console.log(element);
+
+    if (element.checked) {
+      console.log("guess who");
+      // document.querySelector(".survey").classList.toggle("hidden");
+      // document.querySelector("#modalTwo").style.display = "block";
+      // console.log("guess where");
+    }
+  }
+
+  // console.log(element.selected);
+  // const w = (document.querySelector("#modalTwo").style.display = "none");
 });
 
+//Closes the Modal and toggle hidden attribute:
 closeModal.addEventListener("click", () => {
   addHidden();
 });

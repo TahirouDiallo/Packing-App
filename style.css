@@ -315,11 +315,12 @@ body {
 
 .modal {
   position: absolute;
-  top: 50%;
+  /* top: 50%; */
   left: 50%;
+  bottom: 0%;
   transform: translate(-50%, -50%);
-  width: 35%;
-  height: 65%;
+  /* width: 35%; */
+  /* height: 65%; */
   background-color: white;
   padding: 6rem;
   border-radius: 20px;
@@ -350,4 +351,10 @@ body {
 #business {
   width: 20px;
   height: 20px;
+}
+
+#modalTwo {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
 }

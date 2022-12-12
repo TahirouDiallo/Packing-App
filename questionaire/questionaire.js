@@ -10,20 +10,20 @@ const survey = document.querySelector(".survey");
 const end = document.querySelector(".end");
 
 // Q1
-ul_1.addEventListener("click", function() {
-    q1.style.display = "none";
-    q2.style.display = "block";
+ul_1.addEventListener("click", function () {
+  q1.style.display = "none";
+  q2.style.display = "block";
 });
 
 // Q2
-ul_2.addEventListener("click", function() {
-    q2.style.display = "none";
-    q3.style.display = "block";
+ul_2.addEventListener("click", function () {
+  q2.style.display = "none";
+  q3.style.display = "block";
 });
 
 // Thank you message
-ul_3.addEventListener("click", function() {
-    q3.style.display = "none";
-    survey.style.display = "none";
-    end.style.display = "block";
-})
+ul_3.addEventListener("click", function () {
+  q3.style.display = "none";
+  survey.style.display = "none";
+  // end.style.display = "block";
+});
