@@ -33,14 +33,3 @@ function formatDate(date) {
   return year.concat("-", month, "-", day);
 }
 
-//------------------------------------------------------- api location picker:
-// $(function () {
-//   $("#map").locationpicker({
-//     location: { latitude: 46.15242437752303, longitude: 2.7470703125 },
-//     radius: 0,
-//     inputBinding: {
-//       locationNameInput: $("#autocomplete"),
-//     },
-//     enableAutocomplete: true,
-//   });
-// });

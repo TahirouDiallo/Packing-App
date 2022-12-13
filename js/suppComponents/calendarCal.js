@@ -1,9 +1,11 @@
-export const weatherDate = function(date){
-    
-   let now = new Date(date).toLocaleDateString('en-us', 
-    { weekday:"long", month:"long", day:"numeric"});
-    console.log(now)
+export const weatherDate = function (date) {
+  let now = new Date(date).toLocaleDateString("en-us", {
+    timeZone: "UTC",
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+  });
+  console.log(now);
 
-    return now;
-    
-}
+  return now;
+};

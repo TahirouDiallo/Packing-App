@@ -78,9 +78,17 @@ const questionnaireResponses = {
         'family gifts',
       ],
     ],  
+
+    Beach: [
+      defaultItems.Identification,           
+      defaultItems.Hygiene,
+      [
+        'sea water',
+      ],
+    ],
 };
 
-class ChecklistState {
+class StateManager {
   constructor(init={}) {  
     if (!('indexedDB' in window)) {
       console.log('This browser doesn\'t support IndexedDB');
@@ -140,19 +148,29 @@ class ChecklistState {
   }
 
   connectDB() {
-    return openDB('ChecklistDB', 1, {upgrade(db) {
+    return openDB('database', 1, {upgrade(db) {
       if (!db.objectStoreNames.contains('checklist')) {
         console.log('Making Checklist Table...');
 
         const checklistTable = db.createObjectStore('checklist', {keyPath: 'id', autoIncrement: true});
         checklistTable.createIndex('text', 'text', {unique: true});
         checklistTable.createIndex('checked', 'checked', {unique: false});   
-        checklistTable.createIndex('custom', 'custom', {unique: false});                
+        checklistTable.createIndex('custom', 'custom', {unique: false});  
+      }
+
+      if (!db.objectStoreNames.contains('weather')) {
+        console.log('Making Weather Table...');
+
+        const weatherTable = db.createObjectStore('weather', {keyPath: 'id', autoIncrement: true});
+        weatherTable.createIndex('location', 'location', {unique: false});
+        weatherTable.createIndex('date', 'date', {unique: false});   
+        weatherTable.createIndex('temp', 'temp', {unique: false});                
+        weatherTable.createIndex('icon', 'icon', {unique: false}); 
       }
     }});
   }
 
-  append(newItem, showNotification){   
+  append(newItem, showNotification = (msg) => {}){   
     this.get('selected').push(newItem);     
 
     let items = [];           
@@ -302,9 +320,40 @@ class ChecklistState {
       this.set('recordcount', Math.max(0, count));
     });
   } 
+
+  newWeatherForecasts(data){
+    this.database.then(function(db) {
+      const tx = db.transaction(['weather'], 'readwrite');
+      const store = tx.objectStore('weather');
+
+      store.getAll().then((allRecords)=>{
+        allRecords.forEach((item) => {
+          store.delete(item.id); 
+        });
+      });
+      
+      const address = data.address;
+
+      data.days.forEach(day => {
+        const i = {
+          location: address,
+          date: day.datetime,          
+          temp: `${day.temp}°`, 
+          icon: day.icon,         
+        };
+
+        store.add(i);
+      });
+      
+      return store.count();      
+    }).then((count) => {
+      console.log('Dates Added Successfully.');                
+      this.set('data', JSON.stringify({location: data.address, dates: data.days}));           
+    });
+  }
 }
 
-const checklistState = new ChecklistState({recordcount: 0, selected: []});
+const manager = new StateManager({recordcount: 0, selected: [], data: JSON.stringify({location: '', dates: []})});
 
-let state = { checklist: checklistState};
+let state = { manager: manager};
 export {state};

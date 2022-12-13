@@ -7,22 +7,28 @@ body {
   background-color: #f1f1f1;
 }
 
-body {
+body {  
+  position: relative;
   margin: 0%;
   padding: 0%;
 }
 
-.header {
-  height: 120px;
+.noscroll{
+  overflow: hidden;
+}
+
+.header {  
+  height: 15vh;
+  min-height: 120px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between;  
 }
 
 .header .logo {
   width: min-content;
   margin-left: 5%;
   display: flex;
-  align-items: center;
+  align-items: center;    
 }
 
 .header .logo h2 {
@@ -97,7 +103,7 @@ body {
   top: 8px;
 }
 
-.header .menus .menus_container #menu:checked + .icon .menu {
+/* .header .menus .menus_container #menu:checked + .icon .menu {
   background: transparent;
 }
 
@@ -114,7 +120,7 @@ body {
   width: 100%;
   top: 0px;
   transition: all ease 0.3s;
-}
+} */
 
 .header .menus .menus_container #bell {
   display: none;
@@ -135,8 +141,9 @@ body {
   transition: all ease 0.3s;
 }
 
-.app {
-  height: 600px;
+.app {    
+  height: calc(100vh - 120px);  
+  min-height: 650px;  
   display: flex;
   align-items: center;
   background-image: url("public/img/bag.jpg");
@@ -146,7 +153,7 @@ body {
 }
 
 .app .startBox {
-  height: 80%;
+  height:max(65vh, max-content);   
   width: 55%;
   display: flex;
   flex-direction: column;
@@ -159,7 +166,8 @@ body {
 }
 
 .app .startBox .submit {
-  height: 80px;
+  height: 60px;
+  min-height: 8vmin;
   width: 120px;
   border-color: transparent;
   background-color: #333333;
@@ -179,15 +187,15 @@ body {
   height: 80%;
   width: 90%;
   display: flex;
-  font-family: "Ubuntu", sans-serif;
-  font-size: 28px;
+  padding: 25px;
+  font-family: "Ubuntu", sans-serif;  
 }
 
 .app .startBox .startContainer .col1 {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 50%;
+  width: 50%;    
 }
 
 .app .startBox .startContainer .col1 .travel {
@@ -198,17 +206,18 @@ body {
 }
 
 .app .startBox .startContainer .col1 .travel label {
-  font-size: 25px;
+  margin-top: 5%;
+  font-size: 23px;  
 }
 
 .app .startBox .startContainer .col1 .travel input {
-  margin-top: 20px;
+  margin-top: 5%;
   width: 80%;
   height: 35px;
   border-radius: 8px;
   border-color: transparent;
   font-family: "Ubuntu", sans-serif;
-  font-size: large;
+  font-size: 20px;
 }
 
 .app .startBox .startContainer .col2 {
@@ -219,7 +228,7 @@ body {
   border-radius: 14px;
 }
 
-.about {
+.about {  
   height: min-content;
   width: 100%;
   display: flex;
@@ -289,7 +298,7 @@ body {
   background-size: 120% 120%;
 }
 
-.footer {
+.footer {    
   height: 100px;
   background-color: #333333;
   display: flex;
@@ -310,32 +319,79 @@ body {
 /********************Modal***************************/
 
 .hidden {
-  display: none;
+  display: none;  
 }
 
-.modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 35%;
-  height: 65%;
-  background-color: white;
-  padding: 6rem;
-  border-radius: 20px;
-  box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
+.showModal{
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: 10;
 }
 
-.overlay {
-  position: fixed;
+.showOverlay{
+  z-index: 5;
+}
+
+.modalContainer{  
+  position: fixed;  
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.6);
   width: 100%;
-  height: 100%;
-  backdrop-filter: blur(3px);
-  z-index: 5;
+  height: 100%;    
+  font-family: "Ubuntu", sans-serif;
+}
+
+.modal {   
+  position: relative; 
+  width: min-content;  
+  height: max-content;    
+  background-color: white;  
+  border-radius: 20px;
+  box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);  
+  display: flex;
+  justify-content: center;
+  align-items: center;    
+}
+
+.modal .survey {
+    min-width: 200px;
+    max-width: 40vw;
+    width: max-content;
+    height: max-content;         
+    margin: 60px 50px 30px 50px;       
+}
+
+.modal .checklistWeather {
+    display: none;
+    min-width: 40vw;
+    max-width: 55vw;
+    width: max-content;
+    max-height: 80vh;
+    min-height: 60vh;
+    height: max-content;     
+    padding: 20px;
+    margin: 60px 50px 30px 50px;        
+    overflow-y: scroll;    
+}
+
+.modal .checklistWeather::-webkit-scrollbar {
+  width: 12px;
+}
+
+.modal .checklistWeather::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal .checklistWeather::-webkit-scrollbar-thumb {
+  background: transparent;
+  /* background: #3b3b3b; */
+  border-radius: 3px;
+}
+
+.modal .checklistWeather::-webkit-scrollbar-thumb:hover {
+  background: transparent;
+  /* background: rgb(130, 130, 130); */
 }
 
 .close-modal {
@@ -344,7 +400,19 @@ body {
   right: 20px;
   width: 45px;
   font-size: 2rem;
-  /* border-color: white; */
+  border-color: transparent;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.overlay {  
+  position: fixed;
+  top: 0;
+  left: 0;  
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);  
 }
 
 #business {

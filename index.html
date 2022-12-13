@@ -1,249 +1,586 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <!-- <script
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <!-- <script
       type="text/javascript"
       src="https://code.jquery.com/jquery-1.10.2.min.js"
     ></script> -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
-    />
-    <link rel="stylesheet" href="questionaire\questionaire.css" />
-    <!-- AIzaSyB0c5V6qLPsQjarQ35M5dO7_IPANYGIqhI -->
+  <link rel="stylesheet" href="questionaire/questionaire.css" />
+  <link rel="stylesheet" href="checklist/checklist.css" />
+  <!-- AIzaSyB0c5V6qLPsQjarQ35M5dO7_IPANYGIqhI -->
 
-    <script
-      defer
-      src="https://maps.google.com/maps/api/js?key=AIzaSyB0c5V6qLPsQjarQ35M5dO7_IPANYGIqhI&libraries=places&callback=initAutocomplete"
-    ></script>
+  <script defer
+    src="https://maps.google.com/maps/api/js?key=AIzaSyB0c5V6qLPsQjarQ35M5dO7_IPANYGIqhI&libraries=places&callback=initAutocomplete"></script>
 
-    <title>PlanAhead</title>
-  </head>
+  <title>PlanAhead</title>
+</head>
 
-  <body>
-    <div class="header">
-      <div class="col-3 logo">
-        <img src="public\img\logo.png" alt="PlanAhead_logo" />
-        <h2>PlanAhead</h2>
-      </div>
-      <div class="col-9 menus">
-        <div class="menus_container">
-          <input type="checkbox" id="menu" />
-          <label for="menu" class="icon">
-            <div class="menu"></div>
-          </label>
-
-          <input type="checkbox" id="bell" />
-          <label for="bell" class="icon">
-            <img src="public/img/bell.svg" alt="" class="bell" />
-          </label>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal start -->
-    <div class="modal hidden">
-      <button class="close-modal">&times;</button>
-      <div class="survey">
-        <div class="q1">
-          <h3>What is the occassion for your travel?</h3>
-          <ul class="option1">
-            <li>Personal</li>
-            <li>Business</li>
-            <li>School</li>
-            <li>Other</li>
-          </ul>
-        </div>
-
-        <div class="q2">
-          <h3>
-            Out of the following options, which one best describes your
-            destination?
-          </h3>
-          <ul class="option2">
-            <li>Beach</li>
-            <li>Snow Mountains</li>
-            <li>City</li>
-            <li>Forest</li>
-          </ul>
-        </div>
-
-        <div class="q3">
-          <h3>Do you have an itinerary for your travel?</h3>
-          <ul class="option3">
-            <li>Yes</li>
-            <li>No</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="overlay hidden"></div>
-    <!-- Modal end -->
-
-    <div class="app">
-      <div class="startBox">
-        <br />
-        <br />
-        <div class="startContainer">
-          <div class="col1">
-            <div class="travel">
-              <label for="whenFrom" class="form-label"
-                >When do you intend to leave?</label
-              >
-              <input
-                type="date"
-                class="form-control whenTravel"
-                id="whenFrom"
-                placeholder=""
-              />
-            </div>
-            <br />
-            <div class="travel">
-              <label for="whenTo" class="form-label"
-                >When do you intend to return?</label
-              >
-              <input
-                type="date"
-                class="form-control whenTravel"
-                id="whenTo"
-                placeholder=""
-              />
-            </div>
-            <br />
-            <div class="travel">
-              <label for="location" class="form-label"
-                >What is your destination?</label
-              >
-              <input
-                type="text"
-                class="form-control whereDestination"
-                id="autocomplete"
-                placeholder=""
-              />
-            </div>
-          </div>
-          <div class="col2">
-            <div id="map" style="width: 100%; height: 100%"></div>
-          </div>
-        </div>
-        <br />
-        <br />
-        <button class="submit">Let's Plan</button>
-        <br />
-      </div>
-    </div>
-
-    <div class="about">
-      <div class="row topic">
-        <h1>FEATURES</h1>
-      </div>
-      <div class="row weather">
-        <div class="image"></div>
-        <div class="text">
-          <div class="box">
-            <h1>Weather</h1>
-            <br />
-            <h4>
-              Always be prepared no matter what the weather throws at you with
-              our weather feature. Never be gloomy with our 15 day forecast no
-              matter where you go around the world!
-            </h4>
-          </div>
-        </div>
-      </div>
-      <div class="row checklist">
-        <div class="text">
-          <div class="box">
-            <h1>Checklist</h1>
-            <br />
-            <h4>
-              Make a personalized checklist from scratch or let us do the work
-              for you with our default list of items to help expedite your
-              packing so your on the go faster! No matter your choice you can
-              remove, add or edit your list and feel confident that your changes
-              stay securely on your local browser with Indexdb.
-            </h4>
-          </div>
-        </div>
-        <div class="image"></div>
-      </div>
-      <div class="row notificationSystem">
-        <div class="image"></div>
-        <div class="text">
-          <div class="box">
-            <h1>Notification</h1>
-            <br />
-            <h4>
-              Don't leave home without it! Our notification feature reminds
-              users so that they never like something important was left behind.
-            </h4>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer">
-      <h3>
-        <span style="padding-right: 10px"><i class="bi bi-github"></i></span
-        ><a
-          href="https://github.com/TahirouDiallo/Packing-App/tree/master"
-          target="_blank"
-          >Github Repository</a
-        >
-      </h3>
-    </div>
-    <script type="module" src="main.js"></script>
-    <script type="module" src="/questionaire/questionaire.js"></script>
-
-    <script>
-      let autocomplete;
-      var map;
-
-      function initAutocomplete() {
-        autocomplete = new google.maps.places.Autocomplete(
-          document.getElementById("autocomplete"),
-          {
-            fields: ["geometry", "name"],
-          }
-        );
-
-        autocomplete.addListener("place_changed", onPlaceChanged);
-        const myLatLng = { lat: 37.0902, lng: -95.7129 };
-
-        var options = {
-          center: myLatLng,
-          zoom: 9,
-        };
-        map = new google.maps.Map(document.getElementById("map"), options);
+<body>
+  <template id="template-question-cards">
+    <style>
+      .container {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: max-content;
+        font-size: 20px;
       }
 
-      function onPlaceChanged() {
-        var place = autocomplete.getPlace();
+      .question {
+        width: 100%;
+        height: max-content;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
-        if (!place.geometry) {
-          document.getElementById("autocomplete").placeholder = "Enter a place";
-        } else {
-          // document.getElementById("details").innerHTML = place.name;
-          latitude = place.geometry.location.lat();
-          longitude = place.geometry.location.lng();
+      .question:not(:first-child) {
+        display: none;
+      }
 
-          console.log(typeof latitude);
-          console.log(typeof longitude);
+      h3 {
+        text-align: center;
+      }
 
-          var newLatLng = new google.maps.LatLng(latitude, longitude);
-          map.setCenter(newLatLng);
-          marker = new google.maps.Marker({
-            position: newLatLng,
-            title: "Hello World!",
-            map: map,
-            animation: google.maps.Animation.BOUNCE,
-          });
+      .option {
+        width: min-content;
+      }
+
+      .row {
+        width: min-content;
+        margin: 15px 0px 15px 0px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+
+      label {
+        margin-left: 15px;
+      }
+
+      .nextCard {
+        align-self: flex-end;
+        width: max-content;
+        font-size: 14px;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: rgb(59, 59, 59);
+        letter-spacing: 3px;
+        color: #fff;
+        cursor: pointer;
+      }
+
+      .nextCard:hover {
+        background: #585858;
+        transition: 0.1s ease;
+      }
+    </style>
+
+    <div class="container"></div>
+  </template>
+
+  <template id="template-thankyou-card">
+    <style>
+      .end {
+        font-family: "Ubuntu", sans-serif;
+        width: 100%;
+        text-align: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .end h1 {
+        margin: 5px;
+      }
+
+      .end div {
+        width: max-content;
+        height: max-content;
+        border-radius: 10px;
+        padding: 16px;
+        color: white;
+        font-size: 15px;
+        background: rgb(105, 78, 226);
+        outline: none;
+        cursor: pointer;
+      }
+    </style>
+
+    <div class="end">
+      <h1>Thanks for taking our Travel Questionaire</h1>
+      <p>We will use your answers to automatically populate your checklist</p>
+      <br>
+      <div class="checklist" onmousedown="this.style.background = 'rgb(188, 173, 255)';"
+        onmouseup="this.style.background = 'rgb(105, 78, 226)';">Checklist📋</div>
+
+      <!-- <p>Or check your notifications:</p>
+      <a href="../notification/notif.html">Notifications🔔</a> -->
+    </div>
+  </template>
+
+  <template id="template-checklist-system">
+    <style>
+      .container {
+        width: 100%;
+        border-radius: 10px 10px 0 0;
+        font-family: "Ubuntu", sans-serif;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .container h2 {
+        width: max-content;
+        font-size: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #3b3b3b;
+        letter-spacing: 3px;
+        color: #fff;
+        transition: all ease-in-out 0.2s;
+      }
+
+      .container .addTodo {
+        display: flex;
+        justify-content: center;
+      }
+
+      .container .addTodo input {
+        font-size: 20px;
+        height: 50px;
+        width: 100%;
+        background-color: rgb(234, 234, 234);
+        border-radius: 5px 0px 0px 5px;
+        border: none;
+        padding: 0px 10px 0px 10px;
+      }
+
+      .container .addTodo button {
+        height: 50px;
+        width: 80px;
+        border-radius: 0px 5px 5px 0px;
+        background-color: rgb(234, 234, 234);
+        border: none;
+        cursor: pointer;
+        padding: 0px;
+      }
+
+      .container .addTodo button:hover {
+        background-color: rgb(211, 211, 211);
+        transition: all ease-in-out 0.1s;
+      }
+    </style>
+
+    <div class="container">
+      <h2>CHECKLIST</h2>
+      <div class="addTodo">
+        <input type="text" name="newtodo" id="newtodo" placeholder="Enter todo..." />
+        <button id="add"><i class="bi bi-plus-square-dotted"></i></button>
+      </div>
+      <br>
+      <check-list></check-list>
+
+    </div>
+
+  </template>
+
+  <template id="template-check-list">
+    <style>
+      #todos-list {
+        height: 400px;
+        background-color: #fff;
+        padding: 0.5rem;
+        overflow-y: scroll;
+        border-radius: 0 0 5px 5px;
+      }
+
+      #todos-list::-webkit-scrollbar {
+        width: 12px;
+      }
+
+      #todos-list::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      #todos-list::-webkit-scrollbar-thumb {
+        background: #3b3b3b;
+        border-radius: 3px;
+      }
+
+      #todos-list::-webkit-scrollbar-thumb:hover {
+        background: rgb(130, 130, 130);
+      }
+    </style>
+
+    <div id="todos-list"></div>
+  </template>
+
+  <template id="template-to-do">
+    <style>
+      .todo {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 0.5rem;
+        border-radius: 5px;
+      }
+
+      .todo:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+
+      .todo * {
+        cursor: pointer;
+        margin-right: 0.5rem;
+      }
+
+      .todo i {
+        font-size: 0.9rem;
+      }
+
+      .todo p {
+        flex: 1;
+        font-size: 18px;
+        word-break: break-all;
+      }
+
+      .checked {
+        text-decoration: line-through;
+        color: grey;
+      }
+
+      .todo .bi-pencil-square {
+        transform: scale(1.5);
+        padding: 5px;
+        border-radius: 5px;
+        color: #3b3b3b;
+        margin-right: 30px;
+      }
+
+      .todo .bi-pencil-square:hover {
+        background-color: rgb(211, 211, 211);
+        transition: all ease-in-out 0.1s;
+      }
+
+      .todo .bi-trash {
+        transform: scale(1.5);
+        padding: 5px;
+        border-radius: 5px;
+        color: #3b3b3b;
+      }
+
+      .todo .bi-trash:hover {
+        background-color: rgb(211, 211, 211);
+        transition: all ease-in-out 0.1s;
+      }
+    </style>
+
+    <div class="todo">
+      <i id="checked" data-action="check"></i>
+      <p id="text" data-action="check"></p>
+      <i class="bi bi-pencil-square" data-action="edit"></i>
+      <i class="bi bi-trash" data-action="delete"></i>
+    </div>
+  </template>
+
+  <template id="template-weather-api">
+    <style>
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .container h2 {
+        align-self: flex-start;
+        width: max-content;
+        font-size: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #3b3b3b;
+        letter-spacing: 3px;
+        color: #fff;
+        transition: all ease-in-out 0.2s;
+      }
+
+      .slideshow-container {
+        position: relative;
+        width: 85%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* margin: auto; */
+      }
+
+      /* Hide the images by default */
+      .slideshow-container .mySlides {
+        display: none;
+      }
+
+      /* Next & previous buttons */
+      .slideshow-container .prev,
+      .slideshow-container .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        margin-top: -22px;
+        padding: 16px;
+        color: #3b3b3b;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.2s ease;
+        border-radius: 8px 8px 8px 8px;
+        user-select: none;
+      }
+
+      /* Position the "next button" to the right */
+      .slideshow-container .next {
+        right: 0;
+      }
+
+      .slideshow-container .prev {
+        left: 0;
+      }
+
+      /* On hover, add a black background color with a little bit see-through */
+      .slideshow-container .prev:hover,
+      .slideshow-container .next:hover {
+        background-color: #3b3b3b;
+        color: white;
+      }
+
+      .dots {
+        margin-top: 25px;
+      }
+
+      /* The dots/bullets/indicators */
+      .dot {
+        cursor: pointer;
+        height: 15px;
+        width: 15px;
+        margin: 0 2px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        transition: background-color 0.6s ease;
+      }
+
+      .active,
+      .dot:hover {
+        background-color: #717171;
+      }
+
+      /* Fading animation */
+      .slideshow-container .fade {
+        animation-name: fade;
+        animation-duration: 1.5s;
+      }
+
+      @keyframes fade {
+        from {
+          opacity: .4
+        }
+
+        to {
+          opacity: 1
         }
       }
-    </script>
-  </body>
+    </style>
+
+    <div class="container">
+      <h2>WEATHER</h2>
+      <div class="slideshow-container"></div>
+      <div class="dots" style="text-align: center;"></div>
+    </div>
+  </template>
+
+  <div class="header">
+    <div class="col-3 logo">
+      <img src="public\img\logo.png" alt="PlanAhead_logo" style="width: 40%; height: 40%; padding-right: 8px;" />
+      <h2>PlanAhead</h2>
+    </div>
+    <div class="col-9 menus">
+      <div class="menus_container">
+        <input type="checkbox" id="menu" />
+        <label for="menu" class="icon" id="hamburger">
+          <div class="menu"></div>
+        </label>
+
+        <input type="checkbox" id="bell" />
+        <label for="bell" class="icon">
+          <img src="public/img/bell.svg" alt="" class="bell" />
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal start -->
+  <div class="modalContainer hidden">
+    <div class="modal">
+      <button class="close-modal">&times;</button>
+      <div class="survey">
+        <question-cards></question-cards>
+      </div>
+
+      <div class="checklistWeather">
+        <weather-api></weather-api>
+        <br>
+        <br>
+        <checklist-system></checklist-system>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay hidden"></div>
+  <!-- Modal end -->
+
+  <div class="app">
+    <div class="startBox">
+      <br />
+      <br />
+      <div class="startContainer">
+        <div class="col1">
+          <div class="travel">
+            <label for="whenFrom" class="form-label">When do you intend to leave?</label>
+            <input type="date" class="form-control whenTravel" id="whenFrom" placeholder="" />
+          </div>
+          <br />
+          <div class="travel">
+            <label for="whenTo" class="form-label">When do you intend to return?</label>
+            <input type="date" class="form-control whenTravel" id="whenTo" placeholder="" />
+          </div>
+          <br />
+          <div class="travel">
+            <label for="location" class="form-label">What is your destination?</label>
+            <input type="text" class="form-control whereDestination" id="autocomplete" placeholder="" />
+          </div>
+        </div>
+        <div class="col2">
+          <div id="map" style="width: 100%; height: 100%"></div>
+        </div>
+      </div>
+      <br />
+      <button class="submit">Let's Plan</button>
+      <br />
+    </div>
+  </div>
+
+  <div class="about">
+    <div class="row topic">
+      <h1>FEATURES</h1>
+    </div>
+    <div class="row weather">
+      <div class="image"></div>
+      <div class="text">
+        <div class="box">
+          <h1>Weather</h1>
+          <br />
+          <h4>
+            Always be prepared no matter what the weather throws at you with
+            our weather feature. Never be gloomy with our 15 day forecast no
+            matter where you go around the world!
+          </h4>
+        </div>
+      </div>
+    </div>
+    <div class="row checklist">
+      <div class="text">
+        <div class="box">
+          <h1>Checklist</h1>
+          <br />
+          <h4>
+            Make a personalized checklist from scratch or let us do the work
+            for you with our default list of items to help expedite your
+            packing so your on the go faster! No matter your choice you can
+            remove, add or edit your list and feel confident that your changes
+            stay securely on your local browser with Indexdb.
+          </h4>
+        </div>
+      </div>
+      <div class="image"></div>
+    </div>
+    <div class="row notificationSystem">
+      <div class="image"></div>
+      <div class="text">
+        <div class="box">
+          <h1>Notification</h1>
+          <br />
+          <h4>
+            Don't leave home without it! Our notification feature reminds
+            users so that they never like something important was left behind.
+          </h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <h3>
+      <span style="padding-right: 10px"><i class="bi bi-github"></i></span><a
+        href="https://github.com/TahirouDiallo/Packing-App/tree/master" target="_blank">Github Repository</a>
+    </h3>
+  </div>
+
+  <script type="module" src="index.js"></script>
+  <script type="module" src="main.js"></script>
+  <script type="module" src="/checklist/checklist.js"></script>
+  <script type="module" src="/questionaire/questionaire.js"></script>
+  <script type="module" src="/js/api/weather.js"></script>
+
+
+  <script>
+    let autocomplete;
+    var map;
+
+    function initAutocomplete() {
+      autocomplete = new google.maps.places.Autocomplete(
+        document.getElementById("autocomplete"),
+        {
+          fields: ["geometry", "name"],
+        }
+      );
+
+      autocomplete.addListener("place_changed", onPlaceChanged);
+      const myLatLng = { lat: 37.0902, lng: -95.7129 };
+
+      var options = {
+        center: myLatLng,
+        zoom: 9,
+      };
+      map = new google.maps.Map(document.getElementById("map"), options);
+    }
+
+    function onPlaceChanged() {
+      var place = autocomplete.getPlace();
+
+      if (!place.geometry) {
+        document.getElementById("autocomplete").placeholder = "Enter a place";
+      } else {
+        // document.getElementById("details").innerHTML = place.name;
+        latitude = place.geometry.location.lat();
+        longitude = place.geometry.location.lng();
+
+        console.log(typeof latitude);
+        console.log(typeof longitude);
+
+        var newLatLng = new google.maps.LatLng(latitude, longitude);
+        map.setCenter(newLatLng);
+        marker = new google.maps.Marker({
+          position: newLatLng,
+          title: "Hello World!",
+          map: map,
+          animation: google.maps.Animation.BOUNCE,
+        });
+      }
+    }
+  </script>
+</body>
+
 </html>
